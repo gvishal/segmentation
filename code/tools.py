@@ -2,13 +2,13 @@
 A set of useful tools for handing the text segmentation tasks.
 """
 import numpy as np
-from itertools import chain, tee, izip
+from itertools import chain, tee
 # from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 
 stopword_set = set()
 
-with open("/home/aaa244/storage/segmentation/data/STOPWORD.list") as f:
+with open("/DATA/USERS/nishant/EXTRA/OpenText/segmentation/data/STOPWORD.list") as f:
     for line in f:
         stopword_set.add(line.strip())
 # add punctuation
@@ -17,7 +17,7 @@ stopword_set.update(["''",",",".","``","'","!",'"',"#","$","%","&","(",")","*","
 
 stemmer = PorterStemmer()
 
-CHOI_TEMPLATE = "/home/aaa244/storage/segmentation/data/choi/{}/{}/{}.ref"
+CHOI_TEMPLATE = "/DATA/USERS/nishant/EXTRA/OpenText/segmentation/data/choi/{}/{}/{}.ref"
 def choi_loader(doc, tp, ref, word_cut=0, remove_stop=False, stem=False):
     """ Load a choi document from the dataset,
         returns a list of parts
@@ -45,7 +45,7 @@ def choi_loader(doc, tp, ref, word_cut=0, remove_stop=False, stem=False):
 
     return filtered
 
-ARX_TEMPLATE = "/home/aaa244/storage/segmentation/data/arxiv/{:03d}.ref"
+ARX_TEMPLATE = "./data/arxiv/{:03d}.ref"
 def arx_loader(num):
     """ Load an arxiv document from the dataset,
         returns a list of parts
@@ -132,7 +132,7 @@ def pairwise(iterable):
     "s -> (s0,s1), (s1,s2), (s2, s3), ..."
     a, b = tee(iterable)
     next(b, None)
-    return izip(a, b)
+    return zip(a, b)
 
 
 def seg_iter(splits):
